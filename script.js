@@ -36,3 +36,7 @@ const C={help:()=>say('Commands: home, about, skills, projects, contact, github,
  email:()=>{say('Opening mail client.');location.href='mailto:jeffesonsadoguio@gmail.com'}};
 ['home','about','skills','projects','contact'].forEach(k=>C[k]=()=>{say('Navigating to '+k+'.');$(k).scrollIntoView({behavior:rm?'auto':'smooth'})});
 tcmd.addEventListener('keydown',e=>{if(e.key!=='Enter')return;const v=tcmd.value.trim().toLowerCase();tcmd.value='';if(!v)return;say('> '+v);(C[v]||(()=>say('Command not recognized. Type "help".')))()});
+
+// Helmet hologram tilts toward the pointer (desktop only)
+const hw=document.querySelector('.hw svg');
+if(hw&&!rm&&matchMedia('(hover:hover)').matches)addEventListener('pointermove',e=>{hw.style.setProperty('--ry',((e.clientX/innerWidth-.5)*24)+'deg');hw.style.setProperty('--rx',((.5-e.clientY/innerHeight)*16)+'deg')},{passive:true});
